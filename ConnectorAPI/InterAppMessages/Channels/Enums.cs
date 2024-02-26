@@ -239,16 +239,16 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// <summary>
 		/// Overscan Type: <see cref="CutMargin1"/>
 		/// </summary>
-		CutMargin1 = 0,
+		CutMargin1 = 1,
 
 		/// <summary>
 		/// Overscan Type: <see cref="CutMargin2"/>
 		/// </summary>
-		CutMargin2 = 0,
+		CutMargin2 = 2,
 
 		/// <summary>
 		/// Overscan Type: <see cref="CutMargin3"/>
 		/// </summary>
-		CutMargin3 = 0,
+		CutMargin3 = 3,
 	}
 }

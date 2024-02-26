@@ -5,8 +5,8 @@
 		<Nullable>disable</Nullable>
 		<AssemblyName>Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000</AssemblyName>
 		<RootNamespace>Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000</RootNamespace>
-		<PackageVersion>1.0.1-pre2</PackageVersion>
-		<Version>1.0.1-pre2</Version>
+		<PackageVersion>1.0.1-pre3</PackageVersion>
+		<Version>1.0.1-pre3</Version>
 		<PackageTags>Skyline;DataMiner</PackageTags>
 		<PackageProjectUrl>https://skyline.be</PackageProjectUrl>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
