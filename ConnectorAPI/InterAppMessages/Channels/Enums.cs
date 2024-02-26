@@ -1,11 +1,7 @@
-﻿namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages.Channels
-{
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Threading.Tasks;
+﻿// Ignore Spelling: MCM App
 
+namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages.Channels
+{
 	/// <summary>
 	/// Enum with the different channel types.
 	/// </summary>

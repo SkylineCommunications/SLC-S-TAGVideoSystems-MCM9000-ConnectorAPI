@@ -3,27 +3,6 @@
 namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages.Channels
 {
 	using System;
-	using System.Collections.Generic;
-
-	[Serializable]
-	public class ChannelProfile
-	{
-		public int Id { get; set; }
-		public string Title { get; set; }
-		public int NotificationSetId { get; set; }
-		public int EventRuleSetId { get; set; }
-		public int IsDefault { get; set; }
-		public int IsScanned { get; set; }
-		public int TitleColorId { get; set; }
-		public int BorderColorId { get; set; }
-		public int PixelateLevel { get; set; }
-		public int ServiceBitrateMin { get; set; }
-		public int ServiceBitrateMax { get; set; }
-		public int RstRunningStateId { get; set; }
-		public int IsScrambled { get; set; }
-		public List<object> ProfileEvent { get; set; }
-		public List<object> ProfilePid { get; set; }
-	}
 
 	/// <summary>
 	/// Class that represents the data for a channel.
