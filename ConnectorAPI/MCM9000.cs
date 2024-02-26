@@ -16,7 +16,9 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 	/// <summary>
 	/// Represents a DataMiner element using the 'TAG Video Systems MCM-9000' connector, that can handle InterApp Messages.
 	/// </summary>
+#pragma warning disable S101 // Types should be named in PascalCase
 	public class MCM9000
+#pragma warning restore S101 // Types should be named in PascalCase
 	{
 		private TimeSpan defaultTimeout = TimeSpan.FromSeconds(60);
 

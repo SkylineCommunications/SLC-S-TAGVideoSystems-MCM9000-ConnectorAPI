@@ -10,27 +10,17 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// <summary>
 		/// Channel Type: <see cref="T_SPTS"/>
 		/// </summary>
-		T_SPTS = 0,
+		T_SPTS = 1,
 
 		/// <summary>
 		/// Channel Type: <see cref="T_MPTS"/>
 		/// </summary>
-		T_MPTS = 1,
+		T_MPTS = 2,
 
 		/// <summary>
 		/// Channel Type: <see cref="T_HLS"/>
 		/// </summary>
-		T_HLS = 2,
-
-		/// <summary>
-		/// Channel Type: <see cref="T_RTMP"/>
-		/// </summary>
-		T_RTMP = 3,
-
-		/// <summary>
-		/// Channel Type: <see cref="T_2022_6"/>
-		/// </summary>
-		T_2022_6 = 4,
+		T_HLS = 3,
 	}
 
 	/// <summary>
