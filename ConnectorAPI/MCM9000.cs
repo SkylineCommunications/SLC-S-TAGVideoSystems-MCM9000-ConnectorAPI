@@ -158,5 +158,11 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 			myCommand.Messages.AddMessage(message);
 			return myCommand.Send(SLNetConnection, Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppReceiverPID, interAppCallTimeout, Types.KnownTypes).First();
 		}
+
+		/// <inheritdoc/>
+		public TResult SendSingleResponseMessage<TResult>(Message message, TimeSpan timeout = default) where TResult : Message
+		{
+			return (TResult)SendSingleResponseMessage(message, timeout);
+		}
 	}
 }

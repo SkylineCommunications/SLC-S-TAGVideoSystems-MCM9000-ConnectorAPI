@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: Ip descrambling MCM App Multicast Hls Codecs Playlist
+﻿// Ignore Spelling: Ip descrambling MCM App Multicast Hls Codecs Playlist Overscan
 
 namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages.Channels
 {
@@ -13,7 +13,7 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// <summary>
 		/// The id of the channel.
 		/// </summary>
-		public int Id { get; set; }
+		public int? Id { get; set; }
 
 		/// <summary>
 		/// The name or title  of the channel.
@@ -134,5 +134,10 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// Gets or sets the scrambled state of the channel.
 		/// </summary>
 		public bool? IsScrambled { get; set; }
+
+		/// <summary>
+		/// Gets or sets 'cut margin' and 'is scanned' value.
+		/// </summary>
+		public OverscanType? HideOverscan { get; set; }
 	}
 }

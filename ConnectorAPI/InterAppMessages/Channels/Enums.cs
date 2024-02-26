@@ -1,4 +1,4 @@
-﻿// Ignore Spelling: MCM App
+﻿// Ignore Spelling: MCM App Overscan
 
 namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages.Channels
 {
@@ -224,5 +224,31 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// HD/50/60/HEVC service type
 		/// </summary>
 		HD_50_60_HEVC = 11,
+	}
+
+	/// <summary>
+	/// Enum with the different Overscan options
+	/// </summary>
+	public enum OverscanType
+	{
+		/// <summary>
+		/// Overscan Type: <see cref="None"/>
+		/// </summary>
+		None = 0,
+
+		/// <summary>
+		/// Overscan Type: <see cref="CutMargin1"/>
+		/// </summary>
+		CutMargin1 = 0,
+
+		/// <summary>
+		/// Overscan Type: <see cref="CutMargin2"/>
+		/// </summary>
+		CutMargin2 = 0,
+
+		/// <summary>
+		/// Overscan Type: <see cref="CutMargin3"/>
+		/// </summary>
+		CutMargin3 = 0,
 	}
 }

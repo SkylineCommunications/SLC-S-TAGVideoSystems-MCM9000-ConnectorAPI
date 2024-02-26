@@ -2,8 +2,8 @@
 
 namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages
 {
-    using System;
-    using System.Collections.Generic;
+	using System;
+	using System.Collections.Generic;
 
 	using Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages.Channels;
 
@@ -12,6 +12,16 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 	/// </summary>
 	public static class Types
 	{
+		/// <summary>
+		/// Gets a mapping between the request and response types.
+		/// </summary>
+		public static Dictionary<Type, Type> KnownTypesMap = new Dictionary<Type, Type>
+		{
+			{ typeof(CreateChannel),	typeof(CreateChannelResult) },
+			{ typeof(EditChannel),		typeof(EditChannelResult) },
+			{ typeof(DeleteChannel),	typeof(DeleteChannelResult) }
+		};
+
 		/// <summary>
 		/// Gets a list of all the supported InterApp Message Types.
 		/// </summary>
