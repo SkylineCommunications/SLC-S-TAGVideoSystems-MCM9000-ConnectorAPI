@@ -42,9 +42,23 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 	public class EditChannel : Message
 	{
 		/// <summary>
+		/// Instantiates a new instance of the <see cref="EditChannel"/> class.
+		/// </summary>
+		/// <param name="channelId">The ID of the to be edited channel.</param>
+		public EditChannel(int channelId)
+		{
+			this.ChannelId = channelId;
+		}
+
+		/// <summary>
 		/// The object that hold the channel data.
 		/// </summary>
 		public ChannelData Data { get; set; }
+
+		/// <summary>
+		/// The ID of the to be edited channel.
+		/// </summary>
+		public int ChannelId { get; set; }
 	}
 
 	/// <summary>
@@ -74,9 +88,19 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 	public class DeleteChannel : Message
 	{
 		/// <summary>
-		/// The object that hold the channel data.
+		/// Instantiates a new instance of the <see cref="DeleteChannel"/> class.
 		/// </summary>
-		public ChannelData Data { get; set; }
+		/// <param name="channelId">The ID of the to be removed channel.</param>
+		public DeleteChannel(int channelId)
+		{
+			ChannelId = channelId;
+		}
+
+
+		/// <summary>
+		/// The ID of the to be removed channel.
+		/// </summary>
+		public int ChannelId { get; set; }
 	}
 
 	/// <summary>

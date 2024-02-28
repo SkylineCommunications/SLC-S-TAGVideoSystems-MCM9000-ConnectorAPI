@@ -11,11 +11,6 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 	public class ChannelData
 	{
 		/// <summary>
-		/// The id of the channel.
-		/// </summary>
-		public int? Id { get; set; }
-
-		/// <summary>
 		/// The name or title  of the channel.
 		/// </summary>
 		public string Title { get; set; }
@@ -124,6 +119,11 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// Gets or sets the channel profile URL.
 		/// </summary>
 		public string ProfileUrl { get; set; }
+
+		/// <summary>
+		/// Gets or sets the channel main URL.
+		/// </summary>
+		public string MainUrl { get; set; }
 
 		/// <summary>
 		/// Gets or sets the channel delay.
