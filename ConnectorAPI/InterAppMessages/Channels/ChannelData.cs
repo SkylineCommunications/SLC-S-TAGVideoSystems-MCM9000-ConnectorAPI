@@ -113,17 +113,17 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessage
 		/// <summary>
 		/// Gets or sets the channel playlist URL.
 		/// </summary>
-		public string PlaylistUrl { get; set; }
+		public string PlaylistUrl { get; set; } = String.Empty;
 
 		/// <summary>
 		/// Gets or sets the channel profile URL.
 		/// </summary>
-		public string ProfileUrl { get; set; }
+		public string ProfileUrl { get; set; } = String.Empty;
 
 		/// <summary>
 		/// Gets or sets the channel main URL.
 		/// </summary>
-		public string MainUrl { get; set; }
+		public string MainUrl { get; set; } = String.Empty;
 
 		/// <summary>
 		/// Gets or sets the channel delay.
