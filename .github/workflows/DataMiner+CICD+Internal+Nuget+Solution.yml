@@ -1,9 +1,7 @@
 name: DataMiner CICD Internal Nuget Solution
 on:
   push:
-    branches:
-    - main
-    - master
+    branches: []
     tags:
     - '[0-9]+.[0-9]+.[0-9]+-[0-9a-zA-Z]+'
   workflow_dispatch: 
