@@ -7,7 +7,6 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 	using System.Linq;
 
 	using Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000.InterAppMessages;
-	using Skyline.DataMiner.Core.DataMinerSystem.Common;
 	using Skyline.DataMiner.Core.InterAppCalls.Common.CallBulk;
 	using Skyline.DataMiner.Core.InterAppCalls.Common.CallSingle;
 	using Skyline.DataMiner.Core.InterAppCalls.Common.Shared;
@@ -27,111 +26,61 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 		/// Initialize a new instance of the <see cref="MCM9000"/> class.
 		/// </summary>
 		/// <param name="connection">The connection interface.</param>
-		/// <param name="element">The element in DataMiner.</param>
-		/// <exception cref="ArgumentNullException"></exception>
-		/// <exception cref="ArgumentException"></exception>
-		public MCM9000(IConnection connection, IDmsElement element)
-		{
-			if (element == null)
-			{
-				throw new ArgumentNullException(nameof(element));
-			}
-
-			if (element.Protocol.Name != Constants.ProtocolName)
-			{
-				throw new ArgumentException($"The element is not running protocol '{Constants.ProtocolName}'", nameof(element));
-			}
-
-			Element = element;
-			SLNetConnection = connection ?? throw new ArgumentNullException(nameof(connection));
-		}
-
-		/// <summary>
-		/// Initialize a new instance of the <see cref="MCM9000"/> class.
-		/// </summary>
-		/// <param name="connection">The connection interface.</param>
-		/// <param name="elementName">The name of the element in DataMiner.</param>
-		/// <exception cref="ArgumentNullException"></exception>
-		/// <exception cref="ArgumentException"></exception>
-		public MCM9000(IConnection connection, string elementName)
-		{
-			if (elementName == null)
-			{
-				throw new ArgumentNullException(nameof(elementName));
-			}
-
-			Element = connection.GetDms().GetElement(elementName);
-			if (Element == null)
-			{
-				throw new ArgumentException($"The element with name '{elementName}', could not be found.", nameof(elementName));
-			}
-
-			if (Element.Protocol.Name != Constants.ProtocolName)
-			{
-				throw new ArgumentException($"The element is not running protocol '{Constants.ProtocolName}'", nameof(elementName));
-			}
-
-			SLNetConnection = connection ?? throw new ArgumentNullException(nameof(connection));
-		}
-
-		/// <summary>
-		/// Initialize a new instance of the <see cref="MCM9000"/> class.
-		/// </summary>
-		/// <param name="connection">The connection interface.</param>
-		/// <param name="elementId">The element id in DataMiner.</param>
-		/// <exception cref="ArgumentNullException"></exception>
-		/// <exception cref="ArgumentException"></exception>
-		public MCM9000(IConnection connection, DmsElementId elementId)
-		{
-			if (elementId == default)
-			{
-				throw new ArgumentNullException(nameof(elementId));
-			}
-
-			Element = connection.GetDms().GetElement(elementId);
-			if (Element == null)
-			{
-				throw new ArgumentException($"The element with name '{elementId}', could not be found.", nameof(elementId));
-			}
-
-			if (Element.Protocol.Name != Constants.ProtocolName)
-			{
-				throw new ArgumentException($"The element is not running protocol '{Constants.ProtocolName}'", nameof(elementId));
-			}
-
-			SLNetConnection = connection ?? throw new ArgumentNullException(nameof(connection));
-		}
-
-		/// <summary>
-		/// Initialize a new instance of the <see cref="MCM9000"/> class.
-		/// </summary>
-		/// <param name="connection">The connection interface.</param>
 		/// <param name="dmaId">The id of the DataMiner that is hosting the element.</param>
 		/// <param name="elementId">The id of the element in DataMiner.</param>
 		/// <exception cref="ArgumentNullException"></exception>
 		/// <exception cref="ArgumentException"></exception>
-		public MCM9000(IConnection connection, int dmaId, int elementId) : this(connection, new DmsElementId(dmaId, elementId))
+		public MCM9000(IConnection connection, int dmaId, int elementId)
 		{
+			if (dmaId == default)
+			{
+				throw new ArgumentException("Please provide a valid DMA ID.", nameof(dmaId));
+			}
+
+			if (elementId == default)
+			{
+				throw new ArgumentException("Please provide a valid Element ID.", nameof(elementId));
+			}
+
+			SLNetConnection = connection ?? throw new ArgumentNullException(nameof(connection));
+			AgentID = dmaId;
+			ElementID = elementId;
 		}
 		#endregion
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// The id of the DataMiner that is hosting the element.
+		/// </summary>
+		public int AgentID { get; }
+
+		/// <summary>
+		/// The id of the element in DataMiner.
+		/// </summary>
+		public int ElementID { get; }
+
+		/// <summary>
+		/// The SLNet Connection to use.
+		/// </summary>
 		public IConnection SLNetConnection { get; set; }
 
-		/// <inheritdoc/>
-		public IDmsElement Element { get; private set; }
-
-		/// <inheritdoc/>
+		/// <summary>
+		/// Sends the specified messages to the element using InterApp and do not wait for a response.
+		/// </summary>
+		/// <param name="messages">The messages that need to be send.</param>
 		public void SendMessageNoResponse(params Message[] messages)
 		{
-
 			IInterAppCall myCommands = InterAppCallFactory.CreateNew();
-			myCommands.ReturnAddress = new ReturnAddress(Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppResponsePID);
+			myCommands.ReturnAddress = new ReturnAddress(AgentID, ElementID, Constants.InterAppResponsePID);
 			myCommands.Messages.AddMessage(messages);
-			myCommands.Send(SLNetConnection, Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppReceiverPID, Types.KnownTypes);
+			myCommands.Send(SLNetConnection, AgentID, ElementID, Constants.InterAppReceiverPID, Types.KnownTypes);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Sends the specified messages to the element using InterApp and wait for the responses.
+		/// </summary>
+		/// <param name="messages">The messages that need to be send.</param>
+		/// <param name="timeout">The time the method needs to wait for a response.</param>
+		/// <returns>The response coming from the device</returns>
 		public IEnumerable<Message> SendMessages(Message[] messages, TimeSpan timeout = default)
 		{
 			var interAppCallTimeout = timeout;
@@ -141,12 +90,17 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 			}
 
 			IInterAppCall myCommands = InterAppCallFactory.CreateNew();
-			myCommands.ReturnAddress = new ReturnAddress(Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppResponsePID);
+			myCommands.ReturnAddress = new ReturnAddress(AgentID, ElementID, Constants.InterAppResponsePID);
 			myCommands.Messages.AddMessage(messages);
-			return myCommands.Send(SLNetConnection, Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppReceiverPID, interAppCallTimeout, Types.KnownTypes);
+			return myCommands.Send(SLNetConnection, AgentID, ElementID, Constants.InterAppReceiverPID, interAppCallTimeout, Types.KnownTypes);
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Sends the specified message to the element using InterApp and wait for the responses.
+		/// </summary>
+		/// <param name="message">The message that needs to be send.</param>
+		/// <param name="timeout">The time the method needs to wait for a response.</param>
+		/// <returns>The response coming from the device</returns>
 		public Message SendSingleResponseMessage(Message message, TimeSpan timeout = default)
 		{
 			var interAppCallTimeout = timeout;
@@ -156,12 +110,18 @@ namespace Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 			}
 
 			IInterAppCall myCommand = InterAppCallFactory.CreateNew();
-			myCommand.ReturnAddress = new ReturnAddress(Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppResponsePID);
+			myCommand.ReturnAddress = new ReturnAddress(AgentID, ElementID, Constants.InterAppResponsePID);
 			myCommand.Messages.AddMessage(message);
-			return myCommand.Send(SLNetConnection, Element.DmsElementId.AgentId, Element.DmsElementId.ElementId, Constants.InterAppReceiverPID, interAppCallTimeout, Types.KnownTypes).First();
+			return myCommand.Send(SLNetConnection, AgentID, ElementID, Constants.InterAppReceiverPID, interAppCallTimeout, Types.KnownTypes).First();
 		}
 
-		/// <inheritdoc/>
+		/// <summary>
+		/// Sends the specified message to the element using InterApp and wait for the responses.
+		/// </summary>
+		/// <typeparam name="TResult">The type of the result message.</typeparam>
+		/// <param name="message">The message that needs to be send.</param>
+		/// <param name="timeout">The time the method needs to wait for a response.</param>
+		/// <returns>The response coming from the device</returns>
 		public TResult SendSingleResponseMessage<TResult>(Message message, TimeSpan timeout = default) where TResult : Message
 		{
 			return (TResult)SendSingleResponseMessage(message, timeout);
