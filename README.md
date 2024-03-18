@@ -1,5 +1,7 @@
 # Skyline.DataMiner.ConnectorAPI.TAGVideoSystems.MCM9000
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=SkylineCommunications_SLC-S-TAGVideoSystems-MCM9000-ConnectorAPI&metric=alert_status&token=e73eec01ab1b1a94f07454cff2a4f45082e69c94)](https://sonarcloud.io/summary/new_code?id=SkylineCommunications_SLC-S-TAGVideoSystems-MCM9000-ConnectorAPI)
+
 ## About
 
 Connector API (Inter-App Calls/Messages) for DataMiner elements running the 'TAG Video System MCM-9000' connector.
@@ -24,12 +26,12 @@ To get started create a new instance of the MCM9000 class as follows:
 
 #### From Automation
 ```csharp
-var tag = new MCM9000(engine.GetUserConnection(), "TAG Element A");
+var tag = new MCM9000(engine.GetUserConnection(), 123, 25);
 ```
 
 #### From QAction
 ```csharp
-var tag = new MCM9000(protocol.SLNet.RawConnection, "TAG Element A");
+var tag = new MCM9000(protocol.SLNet.RawConnection, 123, 25);
 ```
 
 
@@ -41,7 +43,7 @@ Now that you have an instance of the MCM9000 class, you can start sending InterA
 When you want to send a message, create a new instance of the message and fill in the information.
 ##### For example edit the title of channel 5:
 ```csharp
-var tag = new MCM9000(engine.GetUserConnection(), "DUB_DEV_MVWR_DSC_DCA - AMA");
+var tag = new MCM9000(engine.GetUserConnection(), 123, 25);
 var editmessage = new EditChannel(5)
 {
     Data = new ChannelData
